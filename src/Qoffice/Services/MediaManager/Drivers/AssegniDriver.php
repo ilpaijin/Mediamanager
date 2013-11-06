@@ -1,6 +1,6 @@
 <?php
 
-namespace Qoffice\Services\Mediamanager\Drivers;
+namespace Qoffice\Services\MediaManager\Drivers;
 
 use Laravel\URL;
 use Laravel\Auth;

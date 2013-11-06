@@ -1,6 +1,6 @@
 <?php
 
-namespace Qoffice\Services\Mediamanager\Drivers;
+namespace Qoffice\Services\MediaManager\Drivers;
 
 use Laravel\File;
 use Laravel\Input;
@@ -13,7 +13,7 @@ use Laravel\Validator;
 * @package default
 * @author ilpaijin <ilpaijin@gmail.com>
 */
-class BaseDriver 
+abstract class BaseDriver 
 {
 	/**
 	 * [$input description]

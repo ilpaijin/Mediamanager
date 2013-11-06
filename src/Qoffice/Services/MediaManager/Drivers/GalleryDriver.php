@@ -1,36 +1,36 @@
 <?php
 
-namespace Qoffice\Services\Mediamanager\Drivers;
+namespace Qoffice\Services\MediaManager\Drivers;
 
 use Laravel\URL;
 use Laravel\Auth;
-use Qoffice\Models\Doqu;
+use Qoffice\Models\Gallery;
 
 /**
-* DocumentiUploader class
+* Gallery class
 *
 * @package default
 * @author ilpaijin <ilpaijin@gmail.com>
 */
-class DocumentiDriver extends BaseDriver implements DriverInterface
+class GalleryDriver extends BaseDriver implements DriverInterface
 {	
 	/**
 	 * [$keysAllowed description]
 	 * @var array
 	 */
-	protected $keysAllowed = array('FN','CED','CI','VP','CCIAA','AA','ALL9','RACC','CAS','CAR','IVA');
+	protected $keysAllowed = array('gallery_image');
 
 	/**
 	 * [$path description]
 	 * @var string
 	 */
-	protected $path = 'docs';
+	protected $path = 'gallery';
 
 	/**
 	 * [$mimes description]
 	 * @var string
 	 */
-	protected $mimes = 'mimes:docx,jpg,jpeg,png,bmp,gif,doc,pdf,xls';
+	protected $mimes = 'mimes:jpg,jpeg,png,bmp,gif';
 
 	/**
 	 * [$persist description]
@@ -84,7 +84,7 @@ class DocumentiDriver extends BaseDriver implements DriverInterface
 	 */
 	public function removeFromDb($idutente, $file)
 	{
-		if(!Doqu::where('idRef', '=', $idutente)->where('nomefile', '=', $file)->delete()) return false;
+		if(! Gallery::where('idRef', '=', $idutente)->where('filename', '=', $file)->delete()) return false;
 	}
 
 	/**
@@ -96,10 +96,11 @@ class DocumentiDriver extends BaseDriver implements DriverInterface
 	public function saveToDb($filename, $fileKey)
 	{
 		$user = Auth::user();
-		$doc = Doqu::insert( array(
+		$doc = Gallery::insert( array(
 		    'idRef' => $this->input['idutente'],
 		    'operator' => $user->get_id(),
-		    'nomefile' => $filename,
+		    'pathname' => '/qoffice/media/gallery/'.$this->input['idutente'].'/'.$filename,
+		    'filename' => $filename,
 		    'codice' => $fileKey
 		));
 	}

@@ -1,6 +1,6 @@
 <?php
 
-namespace Qoffice\Services\Mediamanager;
+namespace Qoffice\Services\MediaManager;
 
 use Laravel\Input;
 
@@ -19,34 +19,16 @@ class Mediamanager
 	protected $driver;
 
 	/**
-	 * [$input description]
-	 * @var [type]
-	 */
-	protected $input;
-
-	/**
-	 * [$config description]
-	 * @var [type]
-	 */
-	protected $config;
-
-	/**
-	 * [$response description]
-	 * @var [type]
-	 */
-	public $response;
-
-	/**
 	 * [__construct description]
 	 */
 	public function __construct($type = null)
 	{
 		$inputType = $type ?: Input::get('type');
-		$driverns = 'Qoffice\\Services\\Mediamanager\\Drivers\\'. ucfirst($inputType).'Driver';
+		$driverns = 'Qoffice\\Services\\MediaManager\\Drivers\\'. ucfirst($inputType).'Driver';
 
 		if(!class_exists($driverns))
 		{
-			throw new \Exception('Driver not found');
+			throw new \InvalidArgumentException('Driver not found');
 		}
 
 		$this->setDriver(new $driverns());
@@ -76,8 +58,17 @@ class Mediamanager
 	 * [setTpye description]
 	 * @param DriversDriverInterface $type [description]
 	 */
-	private function setDriver(Drivers\DriverInterface $driver)
+	public function setDriver(Drivers\DriverInterface $driver)
 	{
 		$this->driver = $driver;
+	}
+
+	/**
+	 * [getDriver description]
+	 * @return [type] [description]
+	 */
+	public function getDriver()
+	{
+		return $this->driver;
 	}
 }

@@ -1,0 +1,12 @@
+{
+	"name":"Mediamanager Service (Lara Bundle) ",
+	"author":"ilpaijin@gmail.com",
+	"autoload":{
+		"psr-0":{
+			"Qoffice":"src/"
+		}
+	},
+	"require-dev" : {
+		"mockery/mockery": "dev-master"
+	}
+}
